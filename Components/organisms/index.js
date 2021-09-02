@@ -1,0 +1,5 @@
+export { default as Header } from '../organisms/Header'
+export { default as Categories } from '../organisms/Categories'
+export { default as Carousel } from './Carousel'
+export { default as Suggestedforyou } from './Suggestedforyou'
+export { default as SubCategory } from './SubCategory'

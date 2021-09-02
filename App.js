@@ -1,112 +1,67 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+import React from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import Feather from 'react-native-vector-icons/Feather'
+import Entypo from 'react-native-vector-icons/Entypo'
 
-import React from 'react';
-import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
+
+
+import homeScreen from './Components/screens/homeScreen'
+import superCoin from './Components/screens/superCoin';
+import video from './Components/screens/video'
+import gamezone from './Components/screens/gamezone'
+import { colours } from './Constants';
+
+const Tab = createBottomTabNavigator();
+
+const App = () => {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
+    <NavigationContainer>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          // tabBarStyle: styles(colours.White).tabbar,
+          headerShown: false,
+          tabBarIcon: ({ focused }) => {
+            switch (route.name) {
+              case 'Shop':
+                return <Entypo size={25} name="shop" color={focused ? colours.Blue : colours.Gray} />
+                break;
+              case 'SuperCoin':
+                return <Feather size={25} name="dollar-sign" color={focused ? colours.Blue : colours.Gray} />
+                break;
+              case 'Menu':
+                return <MaterialCommunityIcons size={35} name="microsoft-xbox-controller-menu" color={focused ? colours.Blue : colours.Gray} />
+                break;
+              case 'Video':
+                return <Entypo size={25} name="video" color={focused ? colours.Blue : colours.Gray} />
+                break;
+              case 'GameZone':
+                return <Entypo size={25} name="game-controller" color={focused ? colours.Blue : colours.Gray} />
+                break;
+              default:
+                return <Entypo size={25} name="shop" />
+                break;
+            }
+
+
           },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
+          tabBarShowLabel: true,
+        })}>
+        <Tab.Screen name="Shop" component={homeScreen} />
+        <Tab.Screen name="SuperCoin" component={superCoin} />
+        <Tab.Screen name="Menu" component={superCoin} options={{ tabBarLabel: '' }} />
+        <Tab.Screen name="Video" component={video} />
+        <Tab.Screen name="GameZone" component={gamezone} />
+      </Tab.Navigator>
+    </NavigationContainer>
 
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+  )
+}
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+export default App
 
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
-export default App;
+const styles = StyleSheet.create({})
